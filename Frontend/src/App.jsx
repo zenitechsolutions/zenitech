@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Components
 import Prenav from './components/Prenav';
@@ -54,6 +54,8 @@ const App = () => {
           <Route path="/services/software-licensing" element={<SoftwareLicensing/>}/>
           <Route path="/services/telecom-services" element={<TelecomServices/>}/>
           <Route path="/services/it-services" element={<ItServices/>}/>
+          {/* Catch all route - redirects to home page */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       
       <Floating />
