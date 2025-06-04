@@ -248,7 +248,10 @@ const Hero = () => {
           </span>
           <span className="block overflow-hidden">
             <span className="inline-block animate-slide-up" style={{ animationDelay: "0.3s" }}>
-              <span className="text-orange-500/90">Zenitech</span> <span className="text-blue-600/80">Solutions</span>
+            <span className="bg-gradient-to-br from-orange-700 via-orange-500 to-orange-700 bg-clip-text text-transparent"> 
+  Zenitech 
+</span>
+<span className="bg-gradient-to-br from-blue-800 via-blue-600 to-blue-800 bg-clip-text text-transparent"> Solutions</span> 
             </span>
           </span>
         </h1>
@@ -279,7 +282,7 @@ const Hero = () => {
           <button className="premium-btn secondary group w-full sm:w-auto">
             <span className="relative z-10 flex items-center justify-center gap-2">
               
-              <Play className="w-4 h-4" /> Watch Demo
+              <Play className="w-4 h-4" /> Book a Demo Now
              
               
             </span>
@@ -289,7 +292,7 @@ const Hero = () => {
           <a href="/appointment">
           <button  className="premium-btn tertiary w-full sm:w-auto">
             <span className="relative z-10">
-              Schedule Consultation
+              Schedule a Consultation Now
       
             </span>
           </button>
