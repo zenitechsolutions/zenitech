@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import Logo from "../assets/Logo.jpg";
+import logo from '../assets/Logo.jpg';
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [hoveredDropdown, setHoveredDropdown] = useState(null);
+  const dropdownRefs = useRef({});
+  const timeoutRef = useRef({});
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
@@ -24,10 +27,51 @@ const Navbar = () => {
     setActiveDropdown((prev) => (prev === name ? null : name));
   };
 
+  const handleMouseEnter = (name) => {
+    if (timeoutRef.current[name]) {
+      clearTimeout(timeoutRef.current[name]);
+    }
+    setHoveredDropdown(name);
+  };
+
+  const handleMouseLeave = (name) => {
+    timeoutRef.current[name] = setTimeout(() => {
+      setHoveredDropdown(null);
+    }, 150); // Small delay to prevent flickering
+  };
+
+  const handleDropdownClick = (name, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setActiveDropdown((prev) => (prev === name ? null : name));
+  };
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const isClickInsideDropdown = Object.values(dropdownRefs.current).some(
+        (ref) => ref && ref.contains(event.target)
+      );
+      if (!isClickInsideDropdown) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
+
+  // Cleanup timeouts
+  useEffect(() => {
+    return () => {
+      Object.values(timeoutRef.current).forEach(clearTimeout);
+    };
+  }, []);
 
   const navItems = [
     { name: 'Home', link: '/' },
@@ -62,38 +106,69 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed w-full z-[1000] transition-transform duration-300 ease-in-out border-b border-slate-200 bg-white backdrop-blur-xl ${showNavbar ? 'translate-y-0' : '-translate-y-full'} apple-navbar`}
+      className={`fixed w-full z-[1000] transition-transform duration-300 ease-in-out border-b border-slate-200 bg-white/95 backdrop-blur-xl ${showNavbar ? 'translate-y-0' : '-translate-y-full'} apple-navbar`}
       style={{ WebkitBackdropFilter: 'blur(16px)', backdropFilter: 'blur(16px)' }}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-8 h-14 md:h-16">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2 min-w-[160px]">
-          <img src={Logo} alt="Logo" className="h-7 w-auto" />
+        <a href="/" className="flex items-center gap-1.5 min-w-[140px] md:min-w-[160px]">
+          <div className="h-7 w-7 md:h-8 md:w-8 rounded-full overflow-hidden flex items-center justify-center">
+            <img src={logo} alt="Zenitech Solutions" className="h-full w-full object-cover" />
+          </div>
           <div className="zenitech-brand text-orange-600 font-bold whitespace-nowrap">
             Zenitech <span className='text-blue-700'>Solutions</span>
           </div>
         </a>
+
         {/* Nav Links (Desktop) */}
         <div className="hidden md:flex gap-2 items-center justify-center flex-1">
           {navItems.map((item) =>
             item.dropdown ? (
-              <div key={item.name} className="relative group">
+              <div 
+                key={item.name} 
+                className="relative"
+                ref={(el) => (dropdownRefs.current[item.name] = el)}
+                onMouseEnter={() => handleMouseEnter(item.name)}
+                onMouseLeave={() => handleMouseLeave(item.name)}
+              >
                 <button
-                  onClick={(e) => e.preventDefault()}
-                  className="apple-nav-link flex items-center gap-1 font-medium text-blue-900 px-3 py-1.5 relative"
+                  onClick={(e) => handleDropdownClick(item.name, e)}
+                  className={`apple-nav-link flex items-center gap-1 font-medium px-4 py-2 relative transition-all duration-200 ${
+                    activeDropdown === item.name || hoveredDropdown === item.name
+                      ? 'text-blue-600 bg-blue-50/50'
+                      : 'text-blue-900 hover:text-blue-600'
+                  }`}
                 >
                   {item.name}
-                  <ChevronDown size={16} />
+                  <ChevronDown 
+                    size={16} 
+                    className={`transition-transform duration-200 ${
+                      activeDropdown === item.name || hoveredDropdown === item.name ? 'rotate-180' : ''
+                    }`}
+                  />
                   <span className="apple-underline" />
                 </button>
-                <div className="apple-dropdown absolute top-full left-1/2 -translate-x-1/2 bg-white/95 shadow-xl rounded-xl py-2 opacity-0 group-hover:opacity-100 group-hover:visible invisible group-hover:translate-y-2 transition-all duration-200 z-50 min-w-[220px] mt-2">
-                  {item.dropdown.map((sub) => (
+                
+                <div 
+                  className={`apple-dropdown absolute top-full left-1/2 -translate-x-1/2 bg-white/98 shadow-xl rounded-xl py-3 min-w-[240px] mt-1 border border-slate-100 transition-all duration-200 ${
+                    activeDropdown === item.name || hoveredDropdown === item.name
+                      ? 'opacity-100 visible translate-y-0'
+                      : 'opacity-0 invisible -translate-y-2'
+                  }`}
+                >
+                  {item.dropdown.map((sub, index) => (
                     <a
                       key={sub.name}
                       href={sub.link}
-                      className="block px-5 py-2 text-sm text-slate-800 hover:bg-blue-50 rounded transition"
+                      className={`block px-5 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-150 ${
+                        index === 0 ? 'rounded-t-lg' : ''
+                      } ${index === item.dropdown.length - 1 ? 'rounded-b-lg' : ''}`}
+                      onClick={() => setActiveDropdown(null)}
                     >
-                      {sub.name}
+                      <div className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 bg-blue-400 rounded-full opacity-60"></span>
+                        {sub.name}
+                      </div>
                     </a>
                   ))}
                 </div>
@@ -102,7 +177,7 @@ const Navbar = () => {
               <a
                 key={item.name}
                 href={item.link}
-                className="apple-nav-link font-medium text-blue-950 px-3 py-1.5 relative"
+                className="apple-nav-link font-medium text-blue-950 hover:text-blue-600 px-4 py-2 relative transition-all duration-200"
               >
                 {item.name}
                 <span className="apple-underline" />
@@ -110,193 +185,180 @@ const Navbar = () => {
             )
           )}
         </div>
+
         {/* Contact Us Button (Desktop) & Mobile Toggle */}
-        <div className="flex items-center gap-2 min-w-[160px] justify-end">
+        <div className="flex items-center gap-2 min-w-[40px] md:min-w-[160px] justify-end">
           <a
             href="/contact"
-            className="hidden md:inline-block apple-contact-btn px-5 py-2 text-white bg-blue-950 hover:bg-blue-700 rounded-full font-semibold text-sm transition shadow-none border border-blue-700/20"
-            style={{backdropFilter:'blur(8px)', WebkitBackdropFilter:'blur(8px)'}}
+            className="hidden md:inline-block apple-contact-btn px-6 py-2.5 text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-full font-semibold text-sm transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
             Contact Us
           </a>
-          <button onClick={toggleMobileMenu} className="md:hidden focus:outline-none p-2 rounded-full hover:bg-slate-200 transition">
-            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          <button 
+            onClick={toggleMobileMenu} 
+            className="md:hidden focus:outline-none p-2 rounded-full hover:bg-slate-100 transition-colors duration-200"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
+
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden flex flex-col gap-1 px-4 pb-4 bg-white shadow-md">
-          {navItems.map((item) =>
-            item.dropdown ? (
-              <div key={item.name}>
-                <button
-                  onClick={() => toggleDropdown(item.name)}
-                  className="flex justify-between items-center w-full text-base font-semibold text-blue-900 py-2"
+        <div className="md:hidden apple-mobile-menu bg-white border-t border-slate-200">
+          <div className="px-4 py-2 max-h-[80vh] overflow-y-auto">
+            {navItems.map((item) =>
+              item.dropdown ? (
+                <div key={item.name} className="border-b border-slate-100 last:border-b-0">
+                  <button
+                    onClick={() => toggleDropdown(item.name)}
+                    className="flex justify-between items-center w-full text-left py-4 font-semibold text-blue-900 hover:text-blue-600 transition-colors duration-200"
+                  >
+                    <span>{item.name}</span>
+                    <ChevronDown
+                      className={`transition-transform duration-200 ${
+                        activeDropdown === item.name ? 'rotate-180 text-blue-600' : ''
+                      }`}
+                      size={18}
+                    />
+                  </button>
+                  <div 
+                    className={`overflow-hidden transition-all duration-300 ${
+                      activeDropdown === item.name ? 'max-h-96 pb-3' : 'max-h-0'
+                    }`}
+                  >
+                    <div className="pl-4 space-y-1">
+                      {item.dropdown.map((sub) => (
+                        <a
+                          key={sub.name}
+                          href={sub.link}
+                          className="flex items-center gap-2 py-2.5 text-sm text-blue-700 hover:text-blue-600 hover:bg-blue-50 px-3 rounded-lg transition-all duration-150"
+                          onClick={toggleMobileMenu}
+                        >
+                          <span className="w-1 h-1 bg-blue-400 rounded-full"></span>
+                          {sub.name}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <a
+                  key={item.name}
+                  href={item.link}
+                  className="block py-4 font-semibold text-blue-900 hover:text-blue-600 border-b border-slate-100 last:border-b-0 transition-colors duration-200"
+                  onClick={toggleMobileMenu}
                 >
                   {item.name}
-                  <ChevronDown
-                    className={`transition-transform ${activeDropdown === item.name ? 'rotate-180' : ''}`}
-                    size={18}
-                  />
-                </button>
-                {activeDropdown === item.name && (
-                  <div className="pl-4 flex flex-col gap-1">
-                    {item.dropdown.map((sub) => (
-                      <a
-                        key={sub.name}
-                        href={sub.link}
-                        className="text-sm text-blue-700 py-2"
-                        onClick={toggleMobileMenu}
-                      >
-                        {sub.name}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
+                </a>
+              )
+            )}
+            <div className="pt-4">
               <a
-                key={item.name}
-                href={item.link}
-                className="text-base font-semibold text-blue-900 py-2"
+                href="/contact"
+                className="block w-full text-center bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg transform transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5"
                 onClick={toggleMobileMenu}
               >
-                {item.name}
+                Contact Us
               </a>
-            )
-          )}
-          <a
-            href="/contact"
-            className="mt-2 w-full text-center text-base font-semibold bg-cyan-950 text-white px-4 py-2 rounded-md"
-            onClick={toggleMobileMenu}
-          >
-            Contact Us
-          </a>
+            </div>
+          </div>
         </div>
       )}
+
       <style jsx global>{`
         .apple-navbar {
-          box-shadow: none !important;
-          border-bottom: 1px solid rgba(120,120,120,0.08);
+          box-shadow: 0 1px 20px rgba(0,0,0,0.08);
+          border-bottom: 1px solid rgba(226,232,240,0.8);
         }
+        
         .apple-nav-link {
-          background: none;
-          border: none;
-          outline: none;
+          border-radius: 8px;
           position: relative;
-          color: #1e293b;
-          font-size: 1.08rem;
+          font-size: 0.95rem;
           font-weight: 500;
-          letter-spacing: 0.01em;
-          transition: color 0.18s;
+          letter-spacing: -0.01em;
         }
-        .apple-nav-link:hover, .apple-nav-link:focus {
-          color: #2563eb;
-        }
+        
         .apple-underline {
-          display: block;
           position: absolute;
-          left: 0; right: 0; bottom: 0.1em;
+          left: 50%;
+          right: 50%;
+          bottom: 4px;
           height: 2px;
-          background: linear-gradient(90deg, #2563eb 0%, #fb923c 100%);
+          background: linear-gradient(90deg, #2563eb 0%, #f97316 100%);
           border-radius: 2px;
-          opacity: 0;
-          transform: scaleX(0.5);
-          transition: opacity 0.18s, transform 0.18s;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .apple-nav-link:hover .apple-underline, .apple-nav-link:focus .apple-underline {
-          opacity: 1;
-          transform: scaleX(1);
+        
+        .apple-nav-link:hover .apple-underline {
+          left: 8px;
+          right: 8px;
         }
+        
         .apple-dropdown {
-          min-width: 220px;
-          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
-          opacity: 0;
-          pointer-events: none;
-          transform: translateY(0.5em);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+          z-index: 50;
         }
-        .group:hover .apple-dropdown, .group:focus-within .apple-dropdown {
-          opacity: 1;
-          pointer-events: auto;
-          transform: translateY(0);
-        }
-        .apple-dropdown a {
-          transition: background 0.18s, color 0.18s;
-        }
-        .apple-dropdown a:hover, .apple-dropdown a:focus {
-          background: #f1f5f9;
-          color: #2563eb;
-        }
+        
         .apple-contact-btn {
-          box-shadow: none;
-          font-weight: 600;
-          letter-spacing: 0.01em;
+          letter-spacing: -0.01em;
+          border: 1px solid rgba(59, 130, 246, 0.1);
         }
-        .apple-contact-btn-mobile {
-          box-shadow: none;
-          font-weight: 600;
-          letter-spacing: 0.01em;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-        }
+        
         .apple-mobile-menu {
-          animation: fadeInUp 0.5s cubic-bezier(0.4,0,0.2,1) forwards;
-          background: #fff !important;
-          box-shadow: 0 8px 32px 0 rgba(31,38,135,0.10);
-          min-height: 100vh;
+          animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
-        .apple-mobile-link {
-          background: none;
-          border: none;
-          outline: none;
-          color: #1e293b;
-          font-size: 1.6rem;
-          font-weight: bold;
-          letter-spacing: 0.01em;
-          transition: color 0.18s;
-        }
-        .apple-mobile-link:hover, .apple-mobile-link:focus {
-          color: #2563eb;
-          background: #f1f5f9;
-        }
-        .apple-mobile-sublink {
-          color: #2563eb;
-          font-size: 1.15rem;
-          font-weight: 500;
-          padding-left: 1.5rem;
-          transition: color 0.18s;
-        }
-        .apple-mobile-sublink:hover, .apple-mobile-sublink:focus {
-          color: #fb923c;
-          background: #f1f5f9;
-        }
-        .apple-contact-btn-mobile {
-          font-size: 2rem;
-          font-weight: bold;
-        }
-        @keyframes fadeInUp {
+        
+        @keyframes slideDown {
           from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(-20px);
           }
           to {
             opacity: 1;
             transform: translateY(0);
           }
         }
+        
         .zenitech-brand {
-          font-size: 2.1rem;
-          line-height: 1.1;
-          white-space: nowrap;
-          letter-spacing: -0.01em;
+          font-size: 1.3rem;
+          line-height: 1.2;
+          letter-spacing: -0.02em;
+          font-weight: 700;
         }
-        @media (max-width: 640px) {
+        
+        @media (min-width: 768px) {
           .zenitech-brand {
             font-size: 1.6rem;
           }
+        }
+        
+        @media (max-width: 640px) {
+          .zenitech-brand {
+            font-size: 1.2rem;
+          }
+        }
+        
+        /* Smooth scrollbar for mobile menu */
+        .apple-mobile-menu::-webkit-scrollbar {
+          width: 4px;
+        }
+        
+        .apple-mobile-menu::-webkit-scrollbar-track {
+          background: #f1f5f9;
+        }
+        
+        .apple-mobile-menu::-webkit-scrollbar-thumb {
+          background: #cbd5e1;
+          border-radius: 4px;
+        }
+        
+        .apple-mobile-menu::-webkit-scrollbar-thumb:hover {
+          background: #94a3b8;
         }
       `}</style>
     </nav>
