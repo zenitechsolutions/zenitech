@@ -146,7 +146,7 @@ const FounderPage = () => {
                 </p>
                 
                 <div className="mt-8">
-                  <a href="www.haider.zenitech.in">
+                  <a href="https://www.haider.zenitech.in">
                     <button className="px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors inline-flex items-center gap-2 shadow-sm">
                       Connect with Me <ExternalLink size={16} />
                     </button>
