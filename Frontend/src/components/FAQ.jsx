@@ -17,49 +17,49 @@ const FAQ = () => {
     {
       question: 'What services does Zenitech Solutions offer?',
       answer:
-        'Zenitech Solutions provides services in Cloud, Cybersecurity, Software Licensing, IT Services, Telecom, and Networking. We serve sectors like IT/ITES, BFSI, Healthcare, and more.',
+        'Zenitech Solutions provides services in Cloud, Cybersecurity, Software Solutions, IT Services and Telecom Services, etc. ',
       category: 'Services',
       icon: <Zap size={20} className="text-orange-500" />,
     },
     {
       question: 'Which cloud platforms do you support?',
       answer:
-        'We support AWS, Azure, Google Cloud, Serverwala, OVHcloud, Jio Cloud, and more, covering IaaS, SaaS, PaaS, DR, and Managed Services.',
+        'We support AWS, Azure, Google Cloud, Serverwala, ESDS , OVHcloud, Jio Cloud, and more, covering IaaS, SaaS, PaaS, DR, and Managed Services.',
       category: 'Cloud',
       icon: <Globe size={20} className="text-blue-500" />,
     },
     {
       question: 'What cybersecurity solutions do you provide?',
       answer:
-        'We offer DLP, Endpoint Security, EDR, XDR, SOC, VAPT, and Cloud Security to safeguard your infrastructure.',
+        'We offer Firewall , Endpoint Security , EDR , XDR , Email Security , DLP , SOC , VAPT , API Security , Cloud Security , Application Security , Network Security , OT Security etc to safeguard your infrastructure.',
       category: 'Cybersecurity',
       icon: <Shield size={20} className="text-orange-500" />,
     },
     {
       question: 'Do you offer software licensing solutions?',
       answer:
-        'Yes, we license and support Microsoft, Adobe, VMware, Veeam, Google Workspace, and more.',
+        'Yes, we provide lisense for Microsoft, Google Workspace, Adobe, AnyDesk, Veeam, and manymore.',
       category: 'Software Licensing',
       icon: <Code size={20} className="text-blue-500" />,
     },
     {
       question: 'What telecom services are available?',
       answer:
-        'Services include ILL, PRI, SIP Trunk, MPLS, Cloud Telephony, and WhatsApp Business Messaging.',
+        'Services include ILL, MPLS VPN ,SD WAN , PRI , SIP Trunk , Cloud Telephony , Contact Center Solutions , Call Center Solutions , VOIP , International Calling Services , WhatsApp Business Messaging and many more.',
       category: 'Telecom',
       icon: <Rocket size={20} className="text-orange-500" />,
     },
     {
       question: 'Who are your typical clients?',
       answer:
-        'Our clients include enterprises of all sizes from IT, healthcare, education, BFSI, and manufacturing sectors.',
+        'Our clients include enterprises of all sizes from IT/ITES, Startups, BFSI, Fintech, Healthcare, Pharmaceuticals , Manufacturing , Automobile, Retail, Ecommerce , Education , Media & Entertainment , Logistic & Supply and many more.',
       category: 'Clients',
       icon: <Users size={20} className="text-blue-500" />,
     },
     {
       question: 'How can we get in touch with Zenitech Solutions?',
       answer:
-        'Email us at info@zenitech.in or call +91 88200 66999 / +91 74390 04545. Offices in Bengaluru & Kolkata.',
+        'Email us at info@zenitech.in or call +91 88200 66999 / +91 74390 04545. Corporate Office in Bengaluru, India . Serving customers in PAN India and across the globe.',
       category: 'Contact',
       icon: <HelpCircle size={20} className="text-orange-500" />,
     },
