@@ -32,7 +32,7 @@ const AbtSection = () => {
             className="rounded-xl w-full h-auto shadow-lg"
           />
           <div className="absolute top-4 md:top-6 left-4 md:left-6 bg-blue-900 text-white text-center px-4 md:px-5 py-2 md:py-3 rounded-md shadow-xl">
-            <h2 className="text-xl md:text-2xl font-bold">5+</h2>
+            <h2 className="text-xl md:text-2xl font-bold">20+</h2>
             <p className="text-xs md:text-sm tracking-wide">Years of Experience</p>
           </div>
           <div className="absolute -bottom-4 md:-bottom-5 -right-4 md:-right-5">
@@ -61,7 +61,7 @@ const AbtSection = () => {
               Through strong partnerships with top-tier OEMs and global tech brands, we consistently deliver high-value outcomes across multiple industries.
             </p>
             <p className="text-sm md:text-base text-gray-700">
-              Our clients span from startups to large enterprises across domains like IT/ITES, BFSI, Healthcare, Education, Manufacturing, and more.
+              Our clients span from startups to large enterprises across domains like IT/ITES, Startups, BFSI,  Fintech, Healthcare, Pharmaceuticals ,  Manufacturing , Automobile, Retail, Ecommerce , Education , Media & Entertainment , Logistic & Supply and many more.
             </p>
           </div>
 
@@ -117,7 +117,7 @@ const AbtSection = () => {
             </div>
           </div>
           <p className="text-sm md:text-base text-gray-800 max-w-4xl mx-auto leading-relaxed">
-            Zenitech is a global leader in innovative IT Services — delivering expert consulting, secure cloud infrastructure, and advanced digital services that drive transformation and business success.
+          Your Strategic Partner for Cloud , CyberSecurity , Consulting and Cutting-Edge IT Services.
           </p>
         </div>
       </div>
