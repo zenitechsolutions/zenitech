@@ -20,7 +20,8 @@ const Footer = () => {
         <div>
           <h2 className="text-xl font-semibold mb-4"><span className="text-orange-600">Zenitech</span><span className="text-blue-600"> Solutions</span></h2>
           <p className="text-gray-300 mb-6">
-            Empowering businesses with cutting-edge technology solutions and expert in complete IT services to drive digital transformation and secure your future.
+            
+Innovative IT Services Designed to Modernize, Protect, and Propel Your Business Forward.
           </p>
           <div className="flex space-x-3">
             <a href="https://www.facebook.com/zenitechsolutions" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400"><FaFacebookF /></a>
@@ -37,13 +38,14 @@ const Footer = () => {
             <ul className="space-y-2 text-gray-300">
               <li><a href="/about" className="hover:text-orange-400">About Us</a></li>
               <li><a href="/" className="hover:text-orange-400">Founder Profile</a></li>
-              <li><a href="/contact" className="hover:text-orange-400">Contact Us</a></li>
+             
               <li><a href="/services" className="hover:text-orange-400">Services</a></li>
               <li><a href="/partners" className="hover:text-orange-400">Partners</a></li>
+              <li><a href="/contact" className="hover:text-orange-400">Contact Us</a></li>
             </ul>
             <ul className="space-y-2 text-gray-300">
               <li><a href="/services/cloud-computing" className="hover:text-orange-400">Cloud Computing</a></li>
-              <li><a href="/services/cybersecurity" className="hover:text-orange-400">Cybersecurity</a></li>
+              <li><a href="/services/cybersecurity" className="hover:text-orange-400">Cyber Security</a></li>
               <li><a href="/services/software-licensing" className="hover:text-orange-400">Software License</a></li>
               <li><a href="/services/software-development" className="hover:text-orange-400">Software Development</a></li>
               <li><a href="/services/it-services" className="hover:text-orange-400">IT Services</a></li>
@@ -73,7 +75,7 @@ const Footer = () => {
                 target="_blank" rel="noopener noreferrer"
                 className="hover:text-orange-400"
               >
-                Sunny Seasons, 15/1C , Kamalgazi, Kolkata, 700103 , India.
+                Sunny Seasons, 15/1C , Kamalgazi, P.O Narendrapur, Kolkata, West Bengal,  700103 , India.
               </a>
             </li>
             <li className="flex items-center">
@@ -98,7 +100,7 @@ const Footer = () => {
           © <span className="text-orange-400 font-semibold">Zenitech</span><span className="text-blue-400 font-semibold"> Solutions</span>, All rights reserved.
         </p>
         <p className="text-center md:text-right mt-2 md:mt-0">
-          Designed by <a href="https://www.linkedin.com/in/sayan-das-b99810213/" className="text-orange-400 hover:underline">Sayan Das</a>
+          Made by <span className="text-orange-400 font-semibold">Zenitech</span><span className="text-blue-400 font-semibold"> Solutions</span>
         </p>
       </div>
     </footer>
