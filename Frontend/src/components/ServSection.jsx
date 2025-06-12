@@ -24,23 +24,23 @@ const services = [
     route: '/services/cloud-computing',
   },
   {
-    title: 'Cybersecurity',
+    title: 'Cyber Security',
     shortDesc: 'Protect your digital assets with robust security systems.',
-    fullDesc: 'Comprehensive security services including threat detection, vulnerability assessment, managed security operations, and compliance monitoring to safeguard your critical business data.',
+    fullDesc: 'Total Cybersecurity Coverage — Assessment, Detection, Defend, Comply. ',
     icon: Shield,
     route: '/services/cybersecurity',
   },
   {
     title: 'Software License',
-    shortDesc: 'Authorized licensing with complete software deployment.',
-    fullDesc: 'Strategic software procurement, license optimization, and compliance management to reduce costs and ensure legal alignment with enterprise software agreements.',
+    shortDesc: 'Smart Software Spend — Strategic Procurement, Licensing Efficiency, and Audit-Ready Compliance',
+    fullDesc: 'Maximize your return on software investments through optimized license utilization, proactive vendor management, and ongoing compliance tracking.',
     icon: MonitorSmartphone,
     route: '/services/software-licensing',
   },
   {
     title: 'Software Development',
     shortDesc: 'Custom web and app development for modern businesses.',
-    fullDesc: 'End-to-end custom software solutions from ideation to deployment. Our development team delivers responsive web applications, mobile apps, and enterprise software with cutting-edge technologies.',
+    fullDesc: 'End-to-end custom software solutions from ideation to deployment. Our development team delivers responsive web applications, API Services mobile apps, and enterprise software with latest technologies.',
     icon: Code,
     route: '/services/software-development',
   },
@@ -53,18 +53,12 @@ const services = [
   },
   {
     title: 'Telecom Services',
-    shortDesc: 'Reliable telecom integration and management services.',
-    fullDesc: 'Complete telecommunications infrastructure design and implementation including VoIP systems, unified communications, contact centers, and enterprise mobility solutions.',
+    shortDesc: 'Innovative Telecom Solutions for Uninterrupted Connectivity',
+    fullDesc: 'Delivering Reliable Voice and Data Connectivity Solutions Across the Globe, Connecting People and Businesses Seamlessly Anywhere, Anytime.',
     icon: Phone,
     route: '/services/telecom-services',
   },
-  {
-    title: 'Networking Solutions',
-    shortDesc: 'Robust networking design and deployment solutions.',
-    fullDesc: 'Enterprise network architecture, implementation, and management services including SD-WAN, network security, wireless solutions, and performance optimization.',
-    icon: Network,
-    route: '/services/networking-solutions',
-  },
+  
 ];
 
 const ServSection = () => {
