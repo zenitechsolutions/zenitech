@@ -218,11 +218,11 @@ const Hero = () => {
         </div>
 
         {/* Enhanced Welcome Badge - Responsive */}
-        <div className="premium-badge mb-4 sm:mb-6 lg:mb-8 animate-float-in" style={{ animationDelay: "0.3s" }}>
+        <div className=" premium-badge mb-4 sm:mb-6 lg:mb-8 animate-float-in" style={{ animationDelay: "0.3s" }}>
           <div className="flex items-center gap-2 sm:gap-3">
             <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-orange-400 animate-spin-slow" />
             <span className="text-white font-bold tracking-wider text-xs sm:text-sm">
-              WELCOME TO THE FUTURE
+              GROW YOUR BUSINESS WITH US
             </span>
             <Zap className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400 animate-pulse" />
           </div>
@@ -233,17 +233,17 @@ const Hero = () => {
         <h1 className="hero-title mb-4 sm:mb-6">
           <span className="block overflow-hidden">
             <span className="inline-block animate-slide-up" style={{ animationDelay: "0.1s" }}>
-              Elevate, Secure
+              Your Vision,
             </span>
           </span>
           <span className="block overflow-hidden">
             <span className="inline-block animate-slide-up" style={{ animationDelay: "0.2s" }}>
-              Innovate & Transform
+            Our Technology
             </span>
           </span>
           <span className="block overflow-hidden">
             <span className="inline-block animate-slide-up" style={{ animationDelay: "0.3s" }}>
-              Your Business with
+            Innovate Securely with
             </span>
           </span>
           <span className="block overflow-hidden">
@@ -259,9 +259,9 @@ const Hero = () => {
         {/* Enhanced Subtitle - Responsive */}
         <p className="text-white/90 text-base sm:text-lg md:text-xl lg:text-2xl max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto mb-6 sm:mb-8 lg:mb-10 leading-relaxed animate-fade-in-up px-2" 
            style={{ animationDelay: '0.6s' }}>
-          Delivering cutting-edge technology solutions with 
-          <span className="text-blue-400 font-semibold"> Advanced Intelligence</span> and 
-          <span className="text-orange-400 font-semibold"> enterprise-grade security</span>
+          Your Trusted Tech Ally in
+          <span className="text-orange-400 font-semibold"> Cloud Computing, Cyber Security, Software, IT & Telecom Services</span> 
+          <span className="text-orange-400 font-semibold"> </span>
         </p>
 
         {/* Premium CTA Buttons - Responsive stack */}
@@ -290,7 +290,7 @@ const Hero = () => {
           </a>
           
           <a href="/appointment">
-          <button  className="premium-btn tertiary w-full sm:w-auto">
+          <button  className="bg-orange-500/20 text-orange-400 hover:bg-orange-500/30 hover:text-orange-300 transition-all duration-300 border border-orange-400/20 hover:border-orange-300/20 premium-btn tertiary w-full sm:w-auto">
             <span className="relative z-10">
               Schedule a Consultation Now
       
