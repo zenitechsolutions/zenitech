@@ -94,6 +94,7 @@ const Navbar = () => {
         { name: 'Telecom Services', link: '/services/telecom-services' },
       ],
     },
+    { name: 'Partners', link: '/partners' },
     {
       name: 'Talk to Us',
       dropdown: [
@@ -101,7 +102,7 @@ const Navbar = () => {
         { name: 'Product Demo', link: '/product-demo' },
       ],
     },
-    { name: 'Partners', link: '/partners' },
+    
   ];
 
   return (
