@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import "tailwindcss";
+html {
+    scroll-behavior: smooth;
+  }
+/* Hide horizontal scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+
+/* --- Hero Section Styles (moved from Hero.jsx) --- */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+@keyframes scanline {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100vw); }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float-in {
+  from { opacity: 0; transform: translateY(-20px) scale(0.8); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.carousel-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+}
+.carousel-slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+.carousel-slide img {
+  transition: transform 20s ease-out;
+}
+.carousel-slide.active img {
+  transform: scale(1);
+}
+.scanline {
+  animation: scanline 3s infinite linear;
+}
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.premium-badge {
+  position: relative;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  padding: 8px 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.hero-title {
+  font-size: clamp(1.75rem, 6vw, 6rem);
+  font-weight: 800;
+  line-height: 0.9;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+.gradient-text {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6, #f59e0b);
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 4s ease-in-out infinite;
+}
+.premium-btn {
+  position: relative;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  min-width: 140px;
+  pointer-events: auto;
+}
+.premium-btn:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+.premium-btn:hover:before {
+  left: 100%;
+}
+.premium-btn.primary {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+}
+.premium-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+}
+.premium-btn.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+.premium-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+.premium-btn.tertiary {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(251, 146, 60, 0.5);
+}
+.premium-btn.tertiary:hover {
+  background: rgba(251, 146, 60, 0.1);
+  border-color: rgba(251, 146, 60, 0.8);
+  transform: translateY(-2px);
+}
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+.carousel-arrow.left { left: 1rem; }
+.carousel-arrow.right { right: 1rem; }
+.carousel-arrow:hover {
+  background: rgba(59, 130, 246, 0.6);
+  transform: translateY(-50%) scale(1.1);
+}
+.progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.progress-dot.active {
+  background: #3b82f6;
+  transform: scale(1.2);
+}
+.progress-dot.active:after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+.animate-slide-up {
+  animation: slide-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+}
+.animate-fade-in-up {
+  animation: fade-in-up 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+}
+.animate-float-in {
+  animation: float-in 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+}
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+.hero-company-title {
+  font-size: clamp(2.2rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  text-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 1.5px 0 #fff2, 0 0.5px 0 #fff2;
+  margin-bottom: 0.5em;
+  margin-top: 0.2em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  word-break: normal;
+}
+@media (max-width: 640px) {
+  .hero-company-title {
+    font-size: clamp(1.5rem, 8vw, 2.8rem);
+    margin-top: 0.1em;
+  }
+}
+@media (min-width: 1025px) {
+  .hero-company-title {
+    font-size: clamp(3.5rem, 8vw, 7rem);
+  }
+}
+/* Small screens (mobile) */
+@media (max-width: 640px) {
+  .premium-badge { padding: 6px 16px; }
+  .premium-btn { min-width: 120px; padding: 12px 20px; font-size: 0.85rem; }
+  .carousel-arrow { width: 40px; height: 40px; }
+  .carousel-arrow.left { left: 0.75rem; }
+  .carousel-arrow.right { right: 0.75rem; }
+  .progress-dot { width: 8px; height: 8px; }
+}
+/* Medium screens (tablet) */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .premium-btn { min-width: 160px; padding: 14px 28px; font-size: 1rem; }
+  .carousel-arrow { width: 48px; height: 48px; }
+}
+/* Large screens (desktop) */
+@media (min-width: 1025px) {
+  .premium-badge { padding: 12px 32px; }
+  .premium-btn { min-width: 200px; padding: 16px 32px; font-size: 1.1rem; }
+  .carousel-arrow { width: 56px; height: 56px; }
+  .carousel-arrow.left { left: 2rem; }
+  .carousel-arrow.right { right: 2rem; }
+  .progress-dot { width: 12px; height: 12px; }
+}
+/* Very small screens (portrait phones) */
+@media (max-width: 375px) {
+  .hero-title { font-size: clamp(1.5rem, 8vw, 2.5rem); }
+  .premium-btn { min-width: 100px; padding: 10px 16px; font-size: 0.8rem; }
+}
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-title { font-size: clamp(1.25rem, 4vw, 2rem); }
+  .premium-badge { margin-bottom: 1rem; }
+}
+.text-orange-600 { color: #ea580c !important; }
+
+.animate-pop-in {
+  animation: pop-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.carousel-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  will-change: opacity, transform;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
